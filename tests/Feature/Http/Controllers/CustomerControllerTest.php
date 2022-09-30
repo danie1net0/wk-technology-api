@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Address;
-use App\Models\Customer;
+use App\Models\{Address, Customer};
 use Illuminate\Support\Collection;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertModelMissing;
+use function Pest\Laravel\{assertDatabaseHas, assertModelMissing};
 
 test('it should return paginated customer list', function () {
     $customers = Customer::factory()
