@@ -137,6 +137,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'cpf' => [
+            'invalid' => 'O CPF informado é inválido.',
+        ],
     ],
 
     /*
