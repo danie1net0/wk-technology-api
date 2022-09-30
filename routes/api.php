@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('customers', CustomerController::class);
+Route::apiResource('customers', Controllers\CustomerController::class);
+Route::apiResource('products', Controllers\ProductController::class);
