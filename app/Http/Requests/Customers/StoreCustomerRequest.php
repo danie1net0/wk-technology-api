@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Customers;
 
 use App\Rules\CheckCpfRule;
 use Illuminate\Foundation\Http\FormRequest;
