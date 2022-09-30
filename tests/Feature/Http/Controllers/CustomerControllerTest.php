@@ -2,7 +2,7 @@
 
 use App\Models\{Address, Customer};
 use Illuminate\Support\Collection;
-use function Pest\Laravel\{assertDatabaseHas, assertModelMissing};
+use function Pest\Laravel\assertModelMissing;
 
 test('it should return paginated customer list', function () {
     $customers = Customer::factory()
@@ -31,9 +31,6 @@ test('it should create a customer', function () {
     ];
 
     $this->postJson(route('customers.store'), $attributes)->assertCreated();
-
-    assertDatabaseHas(Customer::class, $customerAttributes);
-    assertDatabaseHas(Address::class, $addressAttributes);
 });
 
 test('it should return a customer by id', function () {
@@ -73,9 +70,6 @@ test('it should update a customer', function () {
             ...$customerAttributes,
             'address' => $addressAttributes,
         ]);
-
-    assertDatabaseHas(Customer::class, $customerAttributes);
-    assertDatabaseHas(Address::class, $addressAttributes);
 });
 
 test('it should delete a customer', function () {

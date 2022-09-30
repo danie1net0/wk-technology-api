@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Customers\{CreateCustomerAction, UpdateCustomerAction};
 use App\Http\Requests\{StoreCustomerRequest, UpdateCustomerRequest};
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
@@ -17,17 +18,11 @@ class CustomerController extends Controller
         );
     }
 
-    public function store(StoreCustomerRequest $request): CustomerResource
+    public function store(StoreCustomerRequest $request, CreateCustomerAction $action): CustomerResource
     {
-        /** @var Customer $customer */
-        $customer = Customer::query()
-            ->create($request->only('name', 'cpf', 'email', 'birth_date'));
-
-        $customer
-            ->address()
-            ->create($request->get('address'));
-
-        return CustomerResource::make($customer->refresh());
+        return CustomerResource::make(
+            $action->execute($request->validated())
+        );
     }
 
     public function show(Customer $customer): CustomerResource
@@ -35,13 +30,14 @@ class CustomerController extends Controller
         return CustomerResource::make($customer);
     }
 
-    public function update(UpdateCustomerRequest $request, Customer $customer): CustomerResource
-    {
-        $customer->update($request->only('name', 'cpf', 'email', 'birth_date'));
-
-        $customer->address()->update($request->get('address'));
-
-        return CustomerResource::make($customer);
+    public function update(
+        UpdateCustomerRequest $request,
+        Customer $customer,
+        UpdateCustomerAction $action
+    ): CustomerResource {
+        return CustomerResource::make(
+            $action->execute($customer, $request->validated())
+        );
     }
 
     public function destroy(Customer $customer): Response
