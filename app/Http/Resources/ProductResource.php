@@ -16,6 +16,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'unit_value' => number_format($this->unit_value, 2),
+            'quantity' => $this->when(! is_null($this->sale), $this->sale?->quantity),
         ];
     }
 }

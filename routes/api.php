@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('customers', Controllers\CustomerController::class);
 Route::apiResource('products', Controllers\ProductController::class);
+Route::apiResource('sales', Controllers\SaleController::class)->except('update', 'destroy');

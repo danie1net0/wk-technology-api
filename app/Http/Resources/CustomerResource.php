@@ -18,7 +18,7 @@ class CustomerResource extends JsonResource
             'cpf' => $this->cpf,
             'email' => $this->email,
             'birth_date' => $this->birth_date,
-            'address' => AddressResource::make($this->address),
+            'address' => $this->when(! is_null($this->address), AddressResource::make($this->address)),
         ];
     }
 }
