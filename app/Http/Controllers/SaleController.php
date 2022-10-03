@@ -13,7 +13,7 @@ class SaleController extends Controller
     public function index(): AnonymousResourceCollection
     {
         return SaleResource::collection(
-            Sale::query()->paginate()
+            Sale::query()->paginate(7)
         );
     }
 
