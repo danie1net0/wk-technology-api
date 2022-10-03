@@ -10,7 +10,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'unit_value' => ['required', 'numeric'],
+            'unit_value' => ['required', 'numeric', 'min:0.01'],
         ];
     }
 }
