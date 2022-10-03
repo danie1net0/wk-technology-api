@@ -176,6 +176,7 @@ return [
         'number' => 'número',
         'password' => 'senha',
         'phone' => 'telefone',
+        'products' => 'produtos',
         'second' => 'segundo',
         'sex' => 'sexo',
         'state' => 'estado',
