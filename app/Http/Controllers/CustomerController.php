@@ -7,14 +7,20 @@ use App\Http\Requests\Customers\{StoreCustomerRequest, UpdateCustomerRequest};
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
+use Illuminate\Http\{Request, Response};
 
 class CustomerController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
+        if ($request->has('without_pagination')) {
+            return CustomerResource::collection(
+                Customer::query()->get()
+            );
+        }
+
         return CustomerResource::collection(
-            Customer::query()->paginate()
+            Customer::query()->paginate(7)
         );
     }
 

@@ -16,6 +16,17 @@ test('it should return paginated customer list', function () {
         ->assertJsonPath('data', customerFormattedData($customers));
 });
 
+test('it should return customer list without pagination', function () {
+    $customers = Customer::factory()
+        ->count(8)
+        ->has(Address::factory())
+        ->create();
+
+    $this->getJson(route('customers.index', ['without_pagination' => true]))
+        ->assertOk()
+        ->assertJsonPath('data', customerFormattedData($customers));
+});
+
 test('it should create a customer', function () {
     $customerAttributes = Customer::factory()
         ->make()
