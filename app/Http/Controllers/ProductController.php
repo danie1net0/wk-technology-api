@@ -6,14 +6,20 @@ use App\Http\Requests\Products\{StoreProductRequest, UpdateProductRequest};
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
+use Illuminate\Http\{Request, Response};
 
 class ProductController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
+        if ($request->has('without_pagination')) {
+            return ProductResource::collection(
+                Product::query()->get()
+            );
+        }
+
         return ProductResource::collection(
-            Product::query()->paginate()
+            Product::query()->paginate(7)
         );
     }
 

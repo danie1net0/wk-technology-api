@@ -20,6 +20,22 @@ test('it should return paginated product list', function () {
         ->assertJsonPath('data', $products->toArray());
 });
 
+test('it should return product list without pagination', function () {
+    $products = Product::factory()
+        ->count(8)
+        ->create();
+
+    $products = $products->map(fn (Product $product) => [
+        'id' => $product->id,
+        'name' => $product->name,
+        'unit_value' => number_format($product->unit_value, 2),
+    ]);
+
+    $this->getJson(route('products.index', ['without_pagination' => true]))
+        ->assertOk()
+        ->assertJsonPath('data', $products->toArray());
+});
+
 test('it should create a product', function () {
     $productAttributes = Product::factory()
         ->make()
