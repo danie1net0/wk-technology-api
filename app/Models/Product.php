@@ -22,8 +22,8 @@ class Product extends Model
     public function unitValue(): Attribute
     {
         return Attribute::make(
-            get: static fn (int $value) => $value / 100,
-            set: static fn (int $value) => $value * 100,
+            get: static fn (int | float $value) => $value / 100,
+            set: static fn (int | float $value) => $value * 100,
         );
     }
 
